@@ -4,6 +4,8 @@ import java.util.stream.IntStream;
 
 public class Yatzy {
 
+    private static final int DICES_NUMBER = 5;
+
     public static int chance(int d1, int d2, int d3, int d4, int d5)
     {
 
@@ -12,13 +14,12 @@ public class Yatzy {
 
     public static int yatzy(int... dice)
     {
-        int[] counts = new int[6];
-        for (int die : dice)
-            counts[die-1]++;
-        for (int i = 0; i != 6; i++)
-            if (counts[i] == 5)
-                return 50;
-        return 0;
+        if(dice.length != DICES_NUMBER) {
+            // FIXME : a nicer exception would be better.
+            throw new IllegalArgumentException("Incorrect number of dices.");
+        }
+
+        return IntStream.of(dice).allMatch(number -> number == dice[0]) ? 50 : 0;
     }
 
     public static int ones(int d1, int d2, int d3, int d4, int d5) {

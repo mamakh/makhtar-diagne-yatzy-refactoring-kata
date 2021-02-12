@@ -22,6 +22,10 @@ public class YatzyTest {
         assertEquals(0, Yatzy.yatzy(6,6,6,6,3));
     }
 
+    @Test(expected=IllegalArgumentException.class)  public void yatzy_throws_exception_when_data_is_incorrect() {
+        assertEquals(0, Yatzy.yatzy(6));
+    }
+
     @Test public void test_1s() {
         assertTrue(Yatzy.ones(1,2,3,4,5) == 1);
         assertEquals(2, Yatzy.ones(1,2,1,4,5));
