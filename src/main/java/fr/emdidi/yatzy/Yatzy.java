@@ -22,18 +22,19 @@ public class Yatzy {
         return IntStream.of(dice).allMatch(number -> number == dice[0]) ? 50 : 0;
     }
 
+    private static int accumulator(int value, int ... dice) {
+        if (dice == null || dice.length == 0 ) {
+            throw new IllegalArgumentException("The array is missing.");
+        }
+        return IntStream.of(dice).filter(number -> number == value).reduce(0, (a,b) -> a + value);
+    }
+
     public static int ones(int d1, int d2, int d3, int d4, int d5) {
-        return IntStream.of(d1, d2, d3, d4, d5).filter(dice -> dice == 1).reduce(0, (a,b) -> a + 1);
+        return accumulator(1, d1, d2, d3, d4, d5);
     }
 
     public static int twos(int d1, int d2, int d3, int d4, int d5) {
-        int sum = 0;
-        if (d1 == 2) sum += 2;
-        if (d2 == 2) sum += 2;
-        if (d3 == 2) sum += 2;
-        if (d4 == 2) sum += 2;
-        if (d5 == 2) sum += 2;
-        return sum;
+        return accumulator(2, d1, d2, d3, d4, d5);
     }
 
     public static int threes(int d1, int d2, int d3, int d4, int d5) {
