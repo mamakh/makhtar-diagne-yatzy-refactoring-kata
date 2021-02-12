@@ -1,10 +1,16 @@
 package fr.emdidi.yatzy;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.IntStream;
 
 public class Yatzy {
 
     private static final int DICES_NUMBER = 5;
+
+    private static final int DICE_MAX_NUMBER = 6;
 
     public static int chance(int d1, int d2, int d3, int d4, int d5)
     {
@@ -67,19 +73,22 @@ public class Yatzy {
         return accumulator(6, dice);
     }
 
+    private static int highestOfAKind(int numberOfKind, Integer... dice)
+    {
+        if (dice == null || dice.length == 0 ) {
+            throw new IllegalArgumentException("The array is missing.");
+        }
+
+        List<Integer> dices = Arrays.asList(dice);
+        Optional<Integer> pairFound = dices.stream().sorted(Collections.reverseOrder())
+                .filter(number -> Collections.frequency(dices, number) >= numberOfKind).findFirst();
+
+        return pairFound.isPresent() ? pairFound.get() : 0;
+    }
+
     public static int score_pair(int d1, int d2, int d3, int d4, int d5)
     {
-        int[] counts = new int[6];
-        counts[d1-1]++;
-        counts[d2-1]++;
-        counts[d3-1]++;
-        counts[d4-1]++;
-        counts[d5-1]++;
-        int at;
-        for (at = 0; at != 6; at++)
-            if (counts[6-at-1] >= 2)
-                return (6-at)*2;
-        return 0;
+        return highestOfAKind(2, d1, d2, d3, d4, d5)  * 2;
     }
 
     public static int two_pair(int d1, int d2, int d3, int d4, int d5)
