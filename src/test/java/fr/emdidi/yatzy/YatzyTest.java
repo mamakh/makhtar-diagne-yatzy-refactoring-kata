@@ -1,5 +1,8 @@
-import org.junit.*;
+package fr.emdidi.yatzy;
+
 import static org.junit.Assert.*;
+
+import org.junit.*;
 
 public class YatzyTest {
 
