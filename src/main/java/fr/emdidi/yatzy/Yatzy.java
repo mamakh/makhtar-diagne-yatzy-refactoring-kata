@@ -59,12 +59,7 @@ public class Yatzy {
 
     public int fives()
     {
-        int s = 0;
-        int i;
-        for (i = 0; i < dice.length; i++) 
-            if (dice[i] == 5)
-                s = s + 5;
-        return s;
+        return accumulator(5, dice);
     }
 
     public int sixes()
