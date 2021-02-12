@@ -54,14 +54,7 @@ public class Yatzy {
 
     public int fours()
     {
-        int sum;    
-        sum = 0;
-        for (int at = 0; at != 5; at++) {
-            if (dice[at] == 4) {
-                sum += 4;
-            }
-        }
-        return sum;
+        return accumulator(4, dice);
     }
 
     public int fives()
